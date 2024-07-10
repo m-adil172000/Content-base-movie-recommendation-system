@@ -9,6 +9,8 @@ import pickle
 import pandas as pd
 from flask import request
 import requests
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 #from transformers import pipeline
 
 
@@ -19,7 +21,13 @@ import requests
 
 
 movie_df = pd.read_csv('Data/movies_data.csv',index_col=False)
-similarity = pickle.load(open("similarity.pkl", "rb"))
+#similarity = pickle.load(open("similarity.pkl", "rb"))
+movie_tags = pd.read_csv('movies_tags.csv', index_col=False)
+
+
+tfidf = TfidfVectorizer(max_features=5000)
+tfidf_matrix = tfidf.fit_transform(movie_tags['tags']).toarray()
+similarity= cosine_similarity(tfidf_matrix)
 
 
 # create the flask app
