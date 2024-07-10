@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{%block content %}
+
+<form action="{{ url_for('recommend') }}" method="POST">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.movies.label }}
+        {{ form.movies}}
+        {% if form.movies.errors %}
+            {% for error in form.movies.errors %}
+                <div> {{error}} </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <br>
+    <div>{{ form.submit() }}</div>
+    <br>
+    <div>
+        <p>Redirect to Homepage? <a href="{{ url_for('home')}}">Home</a></p>
+    </div>
+</form>
+
+{%endblock content%}

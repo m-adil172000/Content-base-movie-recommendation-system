@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<style>
+    body {
+        background-color: #f0f0f0; /* Light gray background */
+        font-family: Arial, sans-serif; /* Example font family */
+        color: #333; /* Dark text color */
+    }
+        .movie-poster {
+        width: 150px; /* Adjust the width as needed */
+        height: auto; /* Maintain aspect ratio */
+        display: block;
+        margin-top: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    li {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Recommendations</title>
+</head>
+<body>
+    {% if error %}
+        <h1>Error: {{ error }}</h1>
+    {% else %}
+        <h1>Recommendations for "{{ movie }}"</h1>
+        <ul>
+            {% for recommendation in recommendations %}
+                <li>
+                    <h2><a href="{{recommendation.url}}" target="_blank">{{ recommendation.title }}</a></h2>
+                    {% if recommendation.poster %}
+                        <img src="{{ recommendation.poster }}" alt="Poster of {{ recommendation.title }}" class="movie-poster">
+                    {% else %}
+                        <p>No poster available</p>
+                    {% endif %}
+                    <p>{{ recommendation.tagline}}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <a href="/">Back to Home</a>
+    <p>Redirect to Recommend Page? <a href="{{ url_for('recommend')}}">Recommend</a></p>
+</body>
+</html>

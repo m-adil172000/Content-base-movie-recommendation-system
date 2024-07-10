@@ -1,0 +1,5 @@
+/.ipynb_checkpoints
+/df_merged.pkl
+/df_merged_dict.pkl
+/similarity.pkl
+/__pycache__
